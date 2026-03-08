@@ -1,7 +1,7 @@
 {
   "name": "Trail Weather App",
   "short_name": "TrailWx",
-  "start_url": ".",
+  "start_url": "./index.html",
   "display": "standalone",
   "orientation": "portrait",
   "background_color": "#232a2e",
