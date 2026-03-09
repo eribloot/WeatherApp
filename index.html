@@ -7,23 +7,26 @@
   <meta name="apple-mobile-web-app-capable" content="yes"> 
   <meta name="apple-mobile-web-app-status-bar-style" content="black">
   <link rel="icon" type="image/x-icon" href="/images/favicon.ico">
-  <link rel="apple-touch-icon" href="images/apple-touch-icon-iphone- 60x60.png">
-  <link rel="apple-touch-icon" sizes="60x60" href="images/apple-touch- icon-ipad-76x76.png">
-  <link rel="apple-touch-icon" sizes="114x114" href="images/apple-touch- icon-iphone-retina-120x120.png"> 
-  <link rel="apple-touch-icon" sizes="144x144" href="images/apple-touch- icon-ipad-retina-152x152.png">
+  <link rel="icon" type="images/png" sizes="192x192" href="images/icon-192.png">
+  <link rel="icon" type="images/png" sizes="512x512" href="images/icon-512.png">
   <link href="css/lib/bootstrap.min.css" rel="stylesheet">
+  <link href="css/styles.css" rel="stylesheet">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
   <title>Trail Weather</title>
 </head>
 <body class="bg-dark">
   <!-- Header -->
   <!-- Main Section -->
-  <div class="container vh-100 d-flex flex-column justify-content-center align-item-center">
+  <div class="container vh-100 d-flex flex-column justify-content-center align-items-center">
+    <!-- If the user enters an invalid city, this displays -->
+    <div id="txtError" class="text-danger mb-3 d-none" role="alert" aria-live="assertive">
+      City not found. Please try another location.
+    </div>
     <!-- Input Section -->
-    <div class="input-group mb-3 w-75">
+    <div class="input-group mb-3 w-75 mx-auto">
       <label for="txtCity" class="visually-hidden"> Enter city name.</label>
       <input type="text" id="txtCity" class="form-control" placeholder="Enter city name" aria-label="City Name">
-      <button class="btn btn-primary" id="btnSearch" aria-label="Search Weather for entered city"> Search</button>
+      <button class="btn btn-primary" id="btnSearch" aria-label="Search Weather for entered city">Search</button>
     </div>
 
     <!-- Weather Card -->
@@ -55,11 +58,15 @@
       </div>
     </div>
     <!-- Footer -->
-    <footer class="mt-4 text-center">
-      Data courtesy of <a href="https://open-meteo.com/en/docs" target="_blank">Open-Meteo</a>
+    <footer class="mt-4 text-center text-light">
+      Data courtesy of <a href="https://open-meteo.com/en/docs" target="_blank">Open-Meteo</a>.
     </footer>
   </div>
 </body>
 <script src="js/lib/bootstrap.bundle.min.js"></script>
 <script src="js/app.js"></script>
 </html>
+
+<!-------------------Gen AI Note------------------>
+<!-- For this project, I only used Gen AI to    -->
+<!-- create the icon used in the manifest.      -->

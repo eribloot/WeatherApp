@@ -1,16 +1,34 @@
 // listner for search
-document.querySelector(`#btnSearch`).addEventListener("click", (search) => {
+document.querySelector(`#btnSearch`).addEventListener("click", () => {
+  document.querySelector("#txtError").classList.add("d-none");
+  document.querySelector("#txtCity").classList.remove("is-invalid");
   const strCity = document.querySelector("#txtCity").value.trim();
 
   if (strCity === "") {
-    alert("Please enter a city name.");
+    showError("Please enter a city name.")
     return;
   }
 
   document.querySelector(`#divWeatherCard`).classList.add("d-none");
 
+  // keydown listener to read "Enter" as a click on the button.
+  document.querySelector("#txtCity").addEventListener("keydown", (event) => {
+    if(event.key === "Enter") {
+      document.querySelector("#btnSearch").click();
+    }
+  });
+
   getCoordinates(strCity);
 });
+
+// helper function to display error
+function showError(msg) {
+  const error = document.querySelector("#txtError");
+  const input = document.querySelector("#txtCity");
+  error.textContent = msg;
+  error.classList.remove("d-none");
+  input.classList.add("is-invalid");
+}
 
 // fetch coordinates for given city using open meteo geocoding api.
 function getCoordinates(strCity) {
@@ -20,7 +38,8 @@ function getCoordinates(strCity) {
     .then((response) => response.json())
     .then((data) => {
       if (!data.results || data.results.length === 0) {
-        alert("City not found. Please try again.");
+        showError("City not found. Please try again.");
+        document.querySelector("#divWeatherCard").classList.add("d-none");
         return;
       }
 
@@ -31,6 +50,7 @@ function getCoordinates(strCity) {
     })
     .catch((error) => {
       console.log("geocode error:", error);
+      showError("Unable to find that city. Please try again.")
     });
 }
 
@@ -45,7 +65,7 @@ function getWeather(numLat, numLong) {
     })
     .catch((error) => {
       console.log("weather API error:", error);
-      alert("An error has occurred while retrieving weather data.");
+      showError("An error has occurred while retrieving weather data.");
     });
 }
 
