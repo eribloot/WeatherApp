@@ -43,10 +43,11 @@ function getCoordinates(strCity) {
         return;
       }
 
+      const cityData = data.results[0];
       const numLat = data.results[0].latitude;
       const numLong = data.results[0].longitude;
-
-      getWeather(numLat, numLong);
+      const strCityAPI = `${cityData.name}${cityData.country ? ', ' + cityData.country : ''}`;
+      getWeather(numLat, numLong, strCityAPI);
     })
     .catch((error) => {
       console.log("geocode error:", error);
@@ -55,13 +56,13 @@ function getCoordinates(strCity) {
 }
 
 // fetch weather data from open-meteo api
-function getWeather(numLat, numLong) {
+function getWeather(numLat, numLong, strCity) {
   const strWeatherURL = `https://api.open-meteo.com/v1/forecast?latitude=${numLat}&longitude=${numLong}&current=temperature_2m,relative_humidity_2m,apparent_temperature,precipitation_probability,wind_speed_10m,weather_code&temperature_unit=fahrenheit&wind_speed_unit=mph&timezone=auto`;
 
   fetch(strWeatherURL)
     .then((response) => response.json())
     .then((data) => {
-      renderWeather(data.current);
+      renderWeather(data.current, strCity);
     })
     .catch((error) => {
       console.log("weather API error:", error);
@@ -70,7 +71,9 @@ function getWeather(numLat, numLong) {
 }
 
 // Update DOM with weather data
-function renderWeather(objCurrentWeather) {
+function renderWeather(objCurrentWeather, strCity) {
+  document.querySelector("#txtCityName").textContent = strCity;
+
   const numTemp = objCurrentWeather.temperature_2m;
   const numFeelsLike = objCurrentWeather.apparent_temperature;
   const numHumidity = objCurrentWeather.relative_humidity_2m;
