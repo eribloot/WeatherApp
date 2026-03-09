@@ -16,9 +16,10 @@
   <title>Trail Weather</title>
 </head>
 <body class="bg-dark">
-  <!-- Header -->
   <!-- Main Section -->
   <div class="container vh-100 d-flex flex-column justify-content-center align-items-center">
+    <!-- Page Title -->
+    <h1 class="text-light mb-4 text-center">Trail Weather</h1>
     <!-- If the user enters an invalid city, this displays -->
     <div id="txtError" class="text-danger mb-3 d-none" role="alert" aria-live="assertive">
       City not found. Please try another location.
@@ -35,7 +36,7 @@
       <select id="selCity" class="form-select"></select>
       <button id="btnSelCity" class="btn btn-primary mt-2">Select City</button>
     </div>
-    <!-- Weather Card -->
+    <!-- Weather Card (With place-holder text) -->
     <div class="card text-center p-4 w-75 d-none" id="divWeatherCard" aria-label="Current weather conditions">
       
       <div class="mb-3">
