@@ -1,0 +1,25 @@
+/* Override bootstrap colors for a more Everforest flavored theme. */
+:root {
+  --bs-body-bg: #2b3339;
+  --bs-body-color: #d3c6aa;
+
+  --bs-primary: #a7c080;
+  --bs-secondary: #7fbbb3;
+  --bs-success: #83c092;
+  --bs-warning: #dbbc7f;
+  --bs-danger: #e67e80;
+
+  --bs-card-bg: #323c41;
+  --bs-border-color: #4f5b58;
+}
+
+.form-control {
+  background-color: var(--bs-card-bg);
+  color: var(--bs-body-color);
+  border-color: var(--bs-border-color);
+}
+
+/* small adjustment to the placeholder text; its going to bug me */
+.form-control::placeholder {
+  color: var(--bs-primary);
+}
