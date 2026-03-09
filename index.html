@@ -6,6 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="apple-mobile-web-app-capable" content="yes"> 
   <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <link rel="manifest" href="manifest.json">
   <link rel="icon" type="image/x-icon" href="/images/favicon.ico">
   <link rel="icon" type="images/png" sizes="192x192" href="images/icon-192.png">
   <link rel="icon" type="images/png" sizes="512x512" href="images/icon-512.png">
@@ -28,7 +29,12 @@
       <input type="text" id="txtCity" class="form-control" placeholder="Enter city name" aria-label="City Name">
       <button class="btn btn-primary" id="btnSearch" aria-label="Search Weather for entered city">Search</button>
     </div>
-
+    <!-- City Selection (If more than one match) -->
+    <div id="divSelCity" class="mb-3 d-none">
+      <label for="selCity" class="form-label"> Multiple cities found, please select:</label>
+      <select id="selCity" class="form-select"></select>
+      <button id="btnSelCity" class="btn btn-primary mt-2">Select City</button>
+    </div>
     <!-- Weather Card -->
     <div class="card text-center p-4 w-75 d-none" id="divWeatherCard" aria-label="Current weather conditions">
       

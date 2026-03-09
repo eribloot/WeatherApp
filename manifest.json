@@ -6,6 +6,7 @@
   "orientation": "portrait",
   "background_color": "#232a2e",
   "theme_color": "#232a2e",
+  "description": "Quick weather info for hikers in any city.",
   "icons" : [
     {
       "src": "images/icon-192.png",

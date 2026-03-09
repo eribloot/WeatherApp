@@ -21,6 +21,14 @@ document.querySelector(`#btnSearch`).addEventListener("click", () => {
   getCoordinates(strCity);
 });
 
+// listener for city selection btn
+document.querySelector("#btnSelCity").addEventListener("click", () =>{
+  const selector = document.querySelector("#selCity");
+  const selected = JSON.parse(selector.value);
+  document.querySelector("#divSelCity").classList.add("d-none");
+  getWeather(selected.lat, selected.lon, selected.name);
+})
+
 // helper function to display error
 function showError(msg) {
   const error = document.querySelector("#txtError");
@@ -32,7 +40,7 @@ function showError(msg) {
 
 // fetch coordinates for given city using open meteo geocoding api.
 function getCoordinates(strCity) {
-  const strGeoURL = `https://geocoding-api.open-meteo.com/v1/search?name=${strCity}&count=1`;
+  const strGeoURL = `https://geocoding-api.open-meteo.com/v1/search?name=${strCity}&count=10`;
 
   fetch(strGeoURL)
     .then((response) => response.json())
@@ -43,11 +51,24 @@ function getCoordinates(strCity) {
         return;
       }
 
-      const cityData = data.results[0];
-      const numLat = data.results[0].latitude;
-      const numLong = data.results[0].longitude;
-      const strCityAPI = `${cityData.name}${cityData.country ? ', ' + cityData.country : ''}`;
-      getWeather(numLat, numLong, strCityAPI);
+      // if multiple cities, show dropdown
+      if(data.results.length > 1) {
+        document.querySelector('#divSelCity').innerHTML = "";
+        data.results.forEach(city => {
+          const option = document.createElement("option");
+          option.value = JSON.stringify({lat: city.latitude, lon: city.longitude, name: `${city.name}, ${city.admin1}, ${city.country}`})
+          option.textContent = `${city.name}, ${city.admin1}, ${city.country}`;
+          document.querySelector("#selCity").appendChild(option);
+        });
+        document.querySelector("#divSelCity").classList.remove("d-none");
+      } else {
+        document.querySelector("#divSelCity").classList.add("d-none");
+        const cityData = data.results[0];
+        const numLat = data.results[0].latitude;
+        const numLong = data.results[0].longitude;
+        const strCityAPI = `${cityData.name}${cityData.country ? ', ' + cityData.country : ''}`;
+        getWeather(numLat, numLong, strCityAPI);
+      }
     })
     .catch((error) => {
       console.log("geocode error:", error);
