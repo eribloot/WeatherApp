@@ -10,16 +10,16 @@ document.querySelector(`#btnSearch`).addEventListener("click", () => {
   }
 
   document.querySelector(`#divWeatherCard`).classList.add("d-none");
-
-  // keydown listener to read "Enter" as a click on the button.
-  document.querySelector("#txtCity").addEventListener("keydown", (event) => {
-    if(event.key === "Enter") {
-      document.querySelector("#btnSearch").click();
-    }
-  });
-
   getCoordinates(strCity);
 });
+
+// keydown listener to read "Enter" as a click on the button.
+document.querySelector("#txtCity").addEventListener("keydown", (event) => {
+  if(event.key === "Enter") {
+    document.querySelector("#btnSearch").click();
+  }
+});
+
 
 // listener for city selection btn
 document.querySelector("#btnSelCity").addEventListener("click", () =>{
@@ -53,7 +53,7 @@ function getCoordinates(strCity) {
 
       // if multiple cities, show dropdown
       if(data.results.length > 1) {
-        document.querySelector('#divSelCity').innerHTML = "";
+        document.querySelector('#selCity').innerHTML = "";
         data.results.forEach(city => {
           const option = document.createElement("option");
           option.value = JSON.stringify({lat: city.latitude, lon: city.longitude, name: `${city.name}, ${city.admin1}, ${city.country}`})
@@ -66,7 +66,7 @@ function getCoordinates(strCity) {
         const cityData = data.results[0];
         const numLat = data.results[0].latitude;
         const numLong = data.results[0].longitude;
-        const strCityAPI = `${cityData.name}${cityData.country ? ', ' + cityData.country : ''}`;
+        const strCityAPI = `${cityData.name}, ${cityData.admin1}, ${cityData.country}`;
         getWeather(numLat, numLong, strCityAPI);
       }
     })
@@ -103,8 +103,7 @@ function renderWeather(objCurrentWeather, strCity) {
   const numWeatherCode = objCurrentWeather.weather_code;
 
   document.querySelector("#txtTemp").textContent = `${numTemp}°F`;
-  document.querySelector("#txtFeelsLike").textContent =
-    `Feels Like ${numFeelsLike}°F`;
+  document.querySelector("#txtFeelsLike").textContent = `Feels Like ${numFeelsLike}°F`;
   document.querySelector("#txtHumidity").textContent = `${numHumidity}%`;
   document.querySelector("#txtWind").textContent = `${numWind} mph`;
   document.querySelector("#txtRain").textContent = `${numRain}%`;
